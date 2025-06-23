@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta por Municipio</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <h1>Consulta por Municipio</h1>
+
+  <label for="municipio">Selecciona un municipio:</label>
+  <input type="text" id="municipio" placeholder="Escribe el nombre...">
+  <button onclick="consultarMunicipio()">Consultar</button>
+
+  <div id="resultados"></div>
+
+  <script>
+    const archivos = [
+      "carreterasxmpio.csv",
+      "coberturaxmpio.csv",
+      "densidad.csv",
+      "educativo.csv",
+      "ferraxmpio.csv",
+      "hospitales.csv",
+      "incendiosxmpio.csv",
+      "industriaxmpio.csv",
+      "inundacionxmpio.csv",
+      "naturaxmpio.csv",
+      "ooklaxmpio.csv",
+      "paisajexmpio.csv",
+      "Rentaxhogar.csv",
+      "sanitario.csv",
+      "total_serviciosxmpio.csv"
+    ];
+
+    async function consultarMunicipio() {
+      const municipio = document.getElementById("municipio").value.trim().toUpperCase();
+      const resultadosDiv = document.getElementById("resultados");
+      resultadosDiv.innerHTML = "<p>Cargando datos...</p>";
+
+      let resultadosFinales = [];
+
+      for (const archivo of archivos) {
+        try {
+          const response = await fetch(archivo);
+          const csvText = await response.text();
+          const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+
+          const coincidencias = parsed.data.filter(row =>
+            (row.NAMEUNIT && row.NAMEUNIT.toUpperCase() === municipio) ||
+            (row.MUNICIPIO && row.MUNICIPIO.toUpperCase() === municipio)
+          );
+
+          if (coincidencias.length > 0) {
+            resultadosFinales.push(`<h3>${archivo}</h3><pre>${JSON.stringify(coincidencias, null, 2)}</pre>`);
+          }
+
+        } catch (error) {
+          console.error(`Error al cargar ${archivo}:`, error);
+        }
+      }
+
+      resultadosDiv.innerHTML = resultadosFinales.length > 0
+        ? resultadosFinales.join("")
+        : "<p>No se encontraron datos para ese municipio.</p>";
+    }
+  </script>
+</body>
+</html>

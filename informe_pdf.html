@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Informe Territorial</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 40px;
+    }
+    header {
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+    h1 { font-size: 24px; color: #1b3d3d; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #2c5c4c;
+    }
+    canvas { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Informe Territorial Personalizado</h1>
+    <label for="municipioSelect"><strong>Selecciona un municipio:</strong> </label>
+    <select id="municipioSelect">
+      <option value="02001">Albacete</option>
+      <option value="46161">Minglanilla</option>
+    </select>
+    <div>
+      <strong>Municipio:</strong> <span id="nombreMpio">Albacete</span> |
+      <strong>Provincia:</strong> <span id="provincia">Albacete</span> |
+      <strong>Comunidad:</strong> <span id="comunidad">Castilla-La Mancha</span> |
+      <strong>Extensión:</strong> <span id="superficie">...</span> km²
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="card"><h2>Gasto por Categoría</h2><canvas id="gastoChart"></canvas></div>
+    <div class="card"><h2>Tenencia de Vivienda</h2><canvas id="viviendaChart"></canvas></div>
+    <div class="card"><h2>Paro en Hogares</h2><canvas id="paroChart"></canvas></div>
+    <div class="card"><h2>Densidad de Población</h2><canvas id="densidadChart"></canvas></div>
+    <div class="card"><h2>Acceso a Servicios</h2><canvas id="serviciosChart"></canvas></div>
+    <div class="card"><h2>% Suelo en Riesgo de Incendio</h2><canvas id="incendioChart"></canvas></div>
+  </div>
+
+  <script>
+    let gastoChart, viviendaChart, paroChart, densidadChart, serviciosChart, incendioChart;
+    const rutaBase = "https://trazaurbana.org/smart_terra/RuralInt/";
+
+    function cargarCSV(url, callback) {
+      console.log("Cargando datos desde:", url);
+      Papa.parse(url, {
+        download: true,
+        header: true,
+        complete: results => {
+          if (results.errors.length > 0) {
+            console.error("Error al cargar el CSV:", results.errors);
+            return;
+          }
+          console.log("Datos cargados:", results.data);
+          callback(results.data);
+        }
+      });
+    }
+
+    function actualizarDatosIncendio(codigoINE) {
+      cargarCSV(rutaBase + "incendiosxmpio.csv", data => {
+        const fila = data.find(row => row.MUNICIPIO === codigoINE);
+        if (!fila) {
+          console.log(`No se encontraron datos de incendio para el municipio: ${codigoINE}`);
+          return;
+        }
+
+        // Extraer datos de la fila
+        const areaRiesgo = parseFloat(fila["AREA KM2 RIESGO"]) || 0;
+        const porcentajeRiesgo = parseFloat(fila["% AREA RIESGO INCENDIO"]) || 0;
+
+        // Representación gráfica
+        if (incendioChart) incendioChart.destroy();
+        incendioChart = new Chart(document.getElementById("incendioChart"), {
+          type: 'doughnut',
+          data: {
+            labels: ["Área en riesgo (km²)", "Área sin riesgo"],
+            datasets: [{
+              data: [areaRiesgo, 100 - porcentajeRiesgo],
+              backgroundColor: ['#fd8d3c', '#f7f7f7']
+            }]
+          },
+          options: { cutout: '70%' }
+        });
+
+        console.log(`Municipio ${codigoINE}: Área en riesgo ${areaRiesgo} km², % Riesgo ${porcentajeRiesgo}%`);
+      });
+    }
+
+    document.getElementById("municipioSelect").addEventListener("change", function() {
+      document.getElementById("nombreMpio").textContent = this.options[this.selectedIndex].text;
+      actualizarDatosIncendio(this.value);
+    });
+
+    window.onload = () => { actualizarDatosIncendio("02001"); };
+  </script>
+</body>
+</html>

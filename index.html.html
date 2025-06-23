@@ -1,0 +1,237 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RuralINT | Territorios Inteligentes contra el Despoblamiento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: #F7F3E8;
+      color: #2E4A36;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header img {
+      height: 50px;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #2E4A36;
+      font-weight: 500;
+    }
+    .hero {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(to right, #F7F3E8, #EFE8D8);
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .hero button {
+      background-color: #8C3B2F;
+      color: #fff;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .hero button:hover {
+      background-color: #6e2f25;
+    }
+    section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .profiles {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .profile-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      flex: 1 1 250px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .profile-card:hover {
+      transform: translateY(-5px);
+    }
+    .profile-card a {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      background-color: #2E4A36;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+    }
+    video {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    form input, form textarea {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    form button {
+      width: fit-content;
+      background-color: #2E4A36;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #2E4A36;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .logos-footer img {
+      height: 40px;
+      margin: 0 1rem;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Rural_INT.png" alt="RuralINT">
+    <nav>
+      <a href="#problema">Problema</a>
+      <a href="#filosofia">Filosofía</a>
+      <a href="#solucion">Solución</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Territorios inteligentes para liderar el futuro rural</h1>
+    <p>Ayudamos a construir territorios inteligentes que estén preparados para asumir y liderar los retos del despoblamiento en la España rural.</p>
+    <button onclick="location.href='#solucion'">Explorar por perfil</button>
+  </section>
+
+  <section id="problema">
+    <h2 class="section-title">¿Por qué importa?</h2>
+    <p>178 Municipios en riesgo de despoblamiento en la Comunidad Valenciana. 139 municipios en declive continuo. 222 Pequeños núcleos Tienen menos de 1.000 habitantes (40% del total) han perdido población en las últimas décadas. Algunas consecuencias son Servicios públicos que se alejan, Jóvenes que emigran, Territorios desconectados del conocimiento y que pierden vida.</p>
+  </section>
+
+  <section id="filosofia">
+    <h2 class="section-title">Nuestra filosofía</h2>
+    <p>Creemos en una inteligencia territorial viva, conectada con la tierra y sus comunidades. RuralINT es más que una plataforma: es un latido digital que devuelve centralidad a lo rural.</p>
+    <p>RuralInt es un instrumento estructurante del ecosistema rural inteligente, ofreciendo diagnóstico geoespacial de servicios, visualización interactiva de oportunidades, herramientas de participación ciudadana y promoción del tejido empresarial local. Todo ello alineado con las estrategias europeas, nacionales y autonómicas para revitalizar los territorios en riesgo de despoblación.</p>
+  </section>
+
+  <!-- Visor de tendencias insertado aquí -->
+  <section>
+    <h2 class="section-title">Tendencias de Despoblamiento</h2>
+    <p style="text-align: center; margin-bottom: 1rem;">
+      Observa la evolución y patrones territoriales del despoblamiento en la Comunidad Valenciana mediante este visor interactivo.
+    </p>
+    <div style="display: flex; justify-content: center;">
+      <iframe 
+        src="https://www.arcgis.com/apps/dashboards/2a0279d111bf4be4b03a6bb1561065b9" 
+        width="100%" 
+        height="600" 
+        style="border: none; max-width: 1200px;">
+      </iframe>
+    </div>
+  </section>
+
+  <section id="solucion">
+    <h2 class="section-title">La solución: RuralINT</h2>
+    <div class="profiles">
+      <div class="profile-card">
+        <h3>Reubicarse</h3>
+        <p>Información útil para quienes desean volver a habitar el territorio.</p>
+        <a href="reubicarse.html">Acceder</a>
+      </div>
+      <div class="profile-card">
+        <h3>Emprender</h3>
+        <p>Apoyamos con datos y visualización las oportunidades rurales.</p>
+        <a href="emprender.html">Acceder</a>
+      </div>
+      <div class="profile-card">
+        <h3>Promover</h3>
+        <p>Soluciones para técnicos y entidades que gestionan lo rural.</p>
+        <a href="promover.html">Acceder</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">El enfoque desde nuestra visión</h2>
+    <video controls>
+      <source src="Intro_RuralInt.mp4" type="video/mp4">
+      Tu navegador no soporta video HTML5.
+    </video>
+  </section>
+
+  <section id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <form>
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea rows="4" placeholder="Mensaje"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Smart Terra Ibérica SL · Proyecto RuralINT</p>
+    <div class="logos-footer">
+      <img src="Rural_INT.png" alt="Logo RuralINT">
+      <img src="logo1.jpg" alt="Logo Smart Terra">
+    </div>
+  </footer>
+</body>
+</html>
